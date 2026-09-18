@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eighty years of nets: a synthesis of zooplankton sampling on the Mumbai coast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#F1F3EF;
+    --panel:#E6EBE5;
+    --ink:#17262B;
+    --ink-soft:#4E6165;
+    --teal:#2C6E6A;
+    --silt:#8A6B31;
+    --line:#D0D7CF;
+    --marker:#2C6E6A;
+    --flag:#8A6B31;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0F1A1D;
+      --panel:#17242A;
+      --ink:#E3EAE5;
+      --ink-soft:#9BAFAD;
+      --teal:#74B9B1;
+      --silt:#CBA659;
+      --line:#293A3D;
+      --marker:#74B9B1;
+      --flag:#CBA659;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0F1A1D;
+    --panel:#17242A;
+    --ink:#E3EAE5;
+    --ink-soft:#9BAFAD;
+    --teal:#74B9B1;
+    --silt:#CBA659;
+    --line:#293A3D;
+    --marker:#74B9B1;
+    --flag:#CBA659;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"Spectral",Georgia,"Times New Roman",serif;
+    font-weight:400;
+    font-size:1.0625rem;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:46rem;margin:0 auto;padding:0 1.5rem}
+  .apparatus{
+    font-family:"Barlow Semi Condensed",-apple-system,"Segoe UI",sans-serif;
+    font-weight:500;
+    letter-spacing:.012em;
+  }
+
+  /* ---------- masthead ---------- */
+  header.masthead{padding:4.5rem 0 1.75rem}
+  .status{
+    display:inline-block;
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.9rem;font-weight:600;
+    color:var(--silt);
+    border:1px solid var(--silt);
+    border-radius:2px;
+    padding:.1rem .5rem;
+    margin-bottom:1.5rem;
+  }
+  h1{
+    font-size:clamp(2rem,5.6vw,3.1rem);
+    font-weight:600;
+    line-height:1.08;
+    letter-spacing:-.021em;
+    margin:0 0 .9rem;
+    text-wrap:balance;
+  }
+  .standfirst{
+    font-size:1.2rem;
+    font-weight:300;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0 0 2rem;
+    max-width:34rem;
+  }
+  .byline{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.98rem;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:1rem;
+    line-height:1.65;
+  }
+  .byline em{color:var(--silt);font-style:normal;font-weight:600}
+
+  /* ---------- record strip ---------- */
+  .record{
+    margin:3.25rem 0 0;
+    padding:2rem 0 0;
+    border-top:1px solid var(--line);
+  }
+  .record h2{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:1.02rem;font-weight:600;
+    color:var(--ink-soft);
+    margin:0 0 .35rem;
+  }
+  .record p.hint{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.95rem;color:var(--ink-soft);margin:0 0 1.1rem;
+  }
+  .stripbox{overflow-x:auto;overflow-y:hidden;padding-bottom:.25rem}
+  svg.strip{display:block;min-width:36rem;width:100%;height:auto}
+  svg.strip text{font-family:"Barlow Semi Condensed",sans-serif;font-weight:500}
+  .axis-line{stroke:var(--line);stroke-width:1.5}
+  .tick{stroke:var(--line);stroke-width:1}
+  .decade{fill:var(--ink-soft);font-size:12.5px}
+  .stem{stroke:var(--line);stroke-width:1.5}
+  .dot{fill:var(--ground);stroke:var(--marker);stroke-width:2;cursor:pointer;transition:fill .15s}
+  .dot.flagged{stroke:var(--flag)}
+  .dot:hover,.dot:focus{fill:var(--marker)}
+  .dot.flagged:hover,.dot.flagged:focus{fill:var(--flag)}
+  .dot.on{fill:var(--marker)}
+  .dot.flagged.on{fill:var(--flag)}
+  .hit{fill:transparent;cursor:pointer}
+  .hit:focus{outline:2px solid var(--teal);outline-offset:2px}
+
+  .detail{
+    margin-top:1.1rem;
+    background:var(--panel);
+    border-left:3px solid var(--marker);
+    padding:1.05rem 1.2rem;
+    min-height:6.5rem;
+  }
+  .detail.flagged{border-left-color:var(--flag)}
+  .detail .dyear{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.95rem;font-weight:600;color:var(--ink-soft);
+    margin:0 0 .18rem;
+  }
+  .detail .dtitle{font-size:1.1rem;font-weight:600;line-height:1.3;margin:0 0 .45rem}
+  .detail .dbody{font-size:1rem;line-height:1.6;margin:0;color:var(--ink)}
+  .detail .dgear{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.93rem;color:var(--ink-soft);margin:.5rem 0 0;
+  }
+
+  /* ---------- prose ---------- */
+  main{padding:1rem 0 0}
+  section{border-top:1px solid var(--line);margin-top:3.25rem;padding-top:2rem}
+  section#abstract{border-top:none;margin-top:3rem}
+  h2.sec{
+    font-size:1.55rem;font-weight:600;line-height:1.2;
+    letter-spacing:-.012em;margin:0 0 1rem;text-wrap:balance;
+  }
+  h2.sec .num{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-weight:600;color:var(--silt);
+    margin-right:.55rem;font-size:1.15rem;
+    vertical-align:.08em;
+  }
+  h3.sub{font-size:1.12rem;font-weight:600;margin:1.9rem 0 .6rem}
+  p{margin:0 0 1.15rem}
+  a{color:var(--teal);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+  .lede{
+    font-size:1.1rem;
+    background:var(--panel);
+    padding:1.3rem 1.4rem;
+    border-radius:2px;
+  }
+  .lede p:last-child{margin-bottom:0}
+
+  /* ---------- gear table ---------- */
+  .tablebox{overflow-x:auto;margin:1.5rem 0 .6rem}
+  table{border-collapse:collapse;width:100%;min-width:33rem;font-size:.97rem}
+  th,td{text-align:left;padding:.62rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-weight:600;color:var(--ink-soft);
+    border-bottom:1.5px solid var(--ink-soft);
+    font-size:.96rem;
+  }
+  td.mero-yes{color:var(--teal);font-weight:500}
+  td.mero-no{color:var(--silt);font-weight:600}
+  caption{
+    caption-side:bottom;text-align:left;
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.93rem;color:var(--ink-soft);
+    padding-top:.7rem;line-height:1.5;
+  }
+
+  /* ---------- gap list ---------- */
+  ol.gaps,ul.plain{padding-left:1.25rem;margin:0 0 1.15rem}
+  ol.gaps li,ul.plain li{margin-bottom:.7rem;padding-left:.2rem}
+  ol.gaps li::marker{color:var(--silt);font-family:"Barlow Semi Condensed",sans-serif;font-weight:600}
+
+  /* ---------- references ---------- */
+  ol.refs{padding-left:1.4rem;font-size:.99rem;line-height:1.6}
+  ol.refs li{margin-bottom:.85rem}
+  ol.refs li::marker{color:var(--ink-soft);font-family:"Barlow Semi Condensed",sans-serif}
+  .unverified{color:var(--silt);font-weight:600;font-family:"Barlow Semi Condensed",sans-serif;font-size:.9rem}
+
+  footer{
+    border-top:1px solid var(--line);
+    margin-top:3.25rem;padding:2rem 0 4.5rem;
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-size:.97rem;color:var(--ink-soft);line-height:1.65;
+  }
+  footer strong{color:var(--ink);font-weight:600}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media (max-width:560px){
+    body{font-size:1rem}
+    header.masthead{padding-top:3rem}
+    .wrap{padding:0 1.15rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <span class="status apparatus">Working draft — verify all primary sources</span>
+  <h1>Eighty years of nets on the Mumbai coast</h1>
+  <p class="standfirst">Zooplankton has been sampled off Mumbai since the 1940s, but never with the same net twice. What the record shows is partly the sea and partly the gear.</p>
+  <p class="byline">
+    Review and synthesis · prepared from published abstracts and open datasets<br>
+    <em>Aayan Abdul Mannan Shaikh</em> · M.Sc. Information Technology, Thakur College of Science and Commerce, Kandivali (E), Mumbai 400101<br>
+    Draft <span id="today"></span>
+  </p>
+</header>
+
+<div class="record">
+  <h2 class="apparatus">The sampling record, 1940s–2025</h2>
+  <p class="hint">Select a marker to read the study. Amber markers sampled a habitat where larval forms were expected.</p>
+  <div class="stripbox">
+    <svg class="strip" viewBox="0 0 760 178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline of zooplankton studies on the Mumbai and Maharashtra coast from the 1940s to 2025">
+      <line class="axis-line" x1="26" y1="132" x2="734" y2="132"/>
+      <g id="ticks"></g>
+      <g id="marks"></g>
+    </svg>
+  </div>
+  <div class="detail" id="detail" aria-live="polite">
+    <p class="dyear apparatus" id="d-year">Select a study</p>
+    <p class="dtitle" id="d-title">The record is thin and clustered</p>
+    <p class="dbody" id="d-body">Nine sampling efforts across roughly eighty years, concentrated in two bursts: an estuarine-survey era around Thane Creek and the Ulhas, and a recent wave of short student and institute studies. Long stretches have no coverage at all.</p>
+    <p class="dgear apparatus" id="d-gear"></p>
+  </div>
+</div>
+
+<main>
+
+<section id="abstract">
+  <h2 class="sec"><span class="num">1</span>What this review argues</h2>
+  <div class="lede">
+    <p>Zooplankton records for the Mumbai coast span roughly eighty years and several habitat types, yet they have never been read together. Doing so produces three findings. Copepods dominate every survey regardless of decade, habitat or method. Nutrient loading in the macro-tidal north appears to be restructuring the community away from crustacean plankton. And the apparent diversity of any given site is governed as much by net, depth and time of day as by the water itself — to the point that one recent beach survey recorded no meroplankton at all in a coastline where larval forms are routinely abundant. The practical conclusion is that Mumbai has no comparable time series, only a sequence of incompatible snapshots.</p>
+  </div>
+</section>
+
+<section id="record">
+  <h2 class="sec"><span class="num">2</span>What the record actually contains</h2>
+  <p>The earliest material is indirect. Gaonkar, Krishnamurthy and Anil sampled fourteen stations in and around the ports of Mumbai across three periods in 2001 and 2002, and compared their results against records available since the 1940s — which means a mid-century baseline exists, held inside a later paper rather than as a standing dataset.</p>
+  <p>Between that baseline and the port survey, coverage is sparse and habitat-specific. A 1983 study of nearshore waters at Thal reported zooplankton biomass and composition, noting that diversity increased toward offshore stations and recording pycnogonids for the first time from the west coast of India. Nair and Ramaiah described the coastal ecosystem off Bombay in 1986.</p>
+  <p>The estuarine record is the densest, because Thane Creek and the Ulhas estuary have been resurveyed as pollution monitoring rather than as biodiversity work. A comparison against Gokhale and Athalye's 1993 figures found phytoplankton types had fallen from thirty-six to twenty-six, while the eleven zooplankton types recorded were comparable to 1993 but occurred at lower density. That is one of the few genuine before-and-after signals in the whole corpus, and it points at density rather than richness.</p>
+  <p>Recent work clusters again. Mangrove stations at Bhayandar, Patalganga and Lokhandwala yielded eleven zooplankton groups with tintinnids most dominant. A Patalganga estuary study identified fourteen groups, dominated by copepods and copepod nauplii, followed by barnacle nauplii and foraminifera. The Karanja estuary was sampled from January 2022 to March 2023, producing thirty-seven taxa from sixty samples, with copepods contributing 33.6% of total abundance and decapod larvae 16.75%. And the beach survey that prompted this review sampled five sites between September 2022 and February 2023, recording twenty-eight species in six orders and seventeen families.</p>
+</section>
+
+<section id="copepods">
+  <h2 class="sec"><span class="num">3</span>The one stable signal</h2>
+  <p>Copepods dominate everywhere. They lead the Patalganga estuary counts, they contribute the single largest share at Karanja, they are the dominant group in the mangrove stations, and they are one of the two dominant groups on the open beaches alongside foraminifera. This holds across turbid estuary and sandy shore, across plankton nets and hand nets, and across four decades.</p>
+  <p>That consistency is worth stating plainly because it is the only axis on which the studies are actually comparable. It also sets the reference against which the nutrient-driven changes below are legible: if copepods are the constant, a decline in their relative share is meaningful in a way that a change in total species count is not.</p>
+</section>
+
+<section id="nutrients">
+  <h2 class="sec"><span class="num">4</span>Nutrients are restructuring the northern estuaries</h2>
+  <p>The strongest ecological claim available comes from Karati and colleagues, who compared mesozooplankton across six major estuaries on the west coast during late-monsoon and post-monsoon periods. The macro-tidal northern estuaries — Amba and Thane, both in the Mumbai region — carried higher nutrient concentrations than the micro- and meso-tidal systems further south. Elevated nitrate and phosphate in the post-monsoon period indicated domestic and industrial effluent inputs, and these significantly affected community structure.</p>
+  <p>The mechanism they describe runs from nutrient enrichment to higher phytoplankton standing stock, to depressed dissolved oxygen, to a high-saline eutrophic environment favouring jellyfish. Predation by that jellyfish population on crustacean zooplankton and ichthyoplankton then works against fishery stocks. Their framing is a shift from nutritionally valuable crustacean plankton toward less useful gelatinous forms.</p>
+  <p>This is the thread most worth pursuing, because the Thane Creek monitoring record independently reports zooplankton density falling while richness stayed roughly constant — the pattern you would predict if the community is being restructured rather than simply depleted. Neither source alone establishes a trend. Read together they justify a targeted resampling of the same Thane stations, which is a fundable proposal rather than a literature exercise.</p>
+</section>
+
+<section id="gear">
+  <h2 class="sec"><span class="num">5</span>The net decides the fauna</h2>
+  <p>The clearest methodological result in this corpus is an absence. The 2022–23 beach survey identified twenty holoplankton genera and reported no meroplankton genera at all. Meanwhile the Karanja estuary, sampled over an overlapping period on the same coastline, found decapod larvae making up 16.75% of total abundance — the second largest contribution after copepods. The mangrove and estuary studies likewise record barnacle nauplii, polychaete larvae, and gastropod and bivalve larvae.</p>
+  <p>Larval forms did not vanish from Mumbai's water in 2022. The difference is the sampling design: a hand net worked at the surface, in daylight, on exposed beaches, on a roughly fortnightly interval. Each of those choices selects against meroplankton, which concentrates subsurface, pulses with spawning rather than calendar intervals, and is scarce in high-energy surf compared with sheltered estuarine and mangrove water.</p>
+
+  <div class="tablebox">
+  <table>
+    <caption>Sampling design against recovered fauna. Group counts are not comparable across rows: studies used different taxonomic resolutions, from broad groups to species. That incomparability is the finding, not a caveat to it.</caption>
+    <thead>
+      <tr><th scope="col">Study &amp; habitat</th><th scope="col">Design</th><th scope="col">Reported units</th><th scope="col">Meroplankton</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Five open beaches, 2022–23</td>
+        <td>Hand net, surface, daytime, 10–15 day interval</td>
+        <td>28 species; 20 holoplankton genera</td>
+        <td class="mero-no">None recorded</td>
+      </tr>
+      <tr>
+        <td>Karanja estuary, 2022–23</td>
+        <td>60 samples across 15 months</td>
+        <td>37 taxa; copepods 33.6%</td>
+        <td class="mero-yes">Decapod larvae 16.75%</td>
+      </tr>
+      <tr>
+        <td>Patalganga estuary</td>
+        <td>Seasonal, with hydrological parameters</td>
+        <td>14 groups</td>
+        <td class="mero-yes">Barnacle nauplii prominent</td>
+      </tr>
+      <tr>
+        <td>Mangroves: Bhayandar, Patalganga, Lokhandwala</td>
+        <td>Three stations, two estuarine and one enclosed</td>
+        <td>11 groups; tintinnids dominant</td>
+        <td class="mero-yes">Larval polychaetes, decapods, molluscs</td>
+      </tr>
+      <tr>
+        <td>Mumbai ports, 2001–02</td>
+        <td>14 stations, three sampling periods</td>
+        <td>Abundance, biomass, composition</td>
+        <td class="mero-yes">Compared to 1940s records</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The consequence is that the phrase &ldquo;zooplankton diversity of the Mumbai coast&rdquo; does not currently refer to a measurable quantity. Four of these studies could each be cited as the diversity of the same coastline and would give incompatible answers, none of them wrong.</p>
+</section>
+
+<section id="gaps">
+  <h2 class="sec"><span class="num">6</span>Where the gaps are</h2>
+  <ol class="gaps">
+    <li><strong>No mesh standard.</strong> Where mesh size is reported at all it varies, and hand-net work reports none. Without it, abundance figures cannot be converted to a common basis.</li>
+    <li><strong>Surface and daylight bias.</strong> The shore-based studies sample the top of the water column in daytime, missing the vertically migrating fraction that forms much of the nocturnal community.</li>
+    <li><strong>No monsoon coverage in the shore studies.</strong> The beach survey ran September to February; the estuarine work identifies monsoon as the period of peak abundance. The season with the strongest signal is the season least sampled from shore.</li>
+    <li><strong>Presence without abundance.</strong> Several studies, including the openly published beach dataset, record occurrence rather than counts, which precludes Shannon, Simpson or Margalef indices and therefore any comparison with the estuarine literature that reports them.</li>
+    <li><strong>Almost nothing mobilised to open repositories.</strong> The vast majority of this record sits in journal tables. The single Darwin Core archive discussed here is fifty-nine records. A coastline with eighty years of sampling has effectively no machine-readable occurrence data.</li>
+    <li><strong>Southward and offshore blind spots.</strong> Coverage clusters around the port, the creeks and the northern beaches. The 1983 Thal finding that diversity rises offshore has not been followed up in the Mumbai sector.</li>
+  </ol>
+</section>
+
+<section id="protocol">
+  <h2 class="sec"><span class="num">7</span>A minimum protocol worth agreeing on</h2>
+  <p>The useful output of a review like this is not a species list but a floor for future work. Five requirements would make the next decade of Mumbai student and institute surveys mutually comparable, and none of them requires new funding:</p>
+  <ul class="plain">
+    <li>Report mesh size, net mouth area and volume filtered, so densities can be expressed per cubic metre.</li>
+    <li>Sample at least one night station per site per season, to capture the migrating fraction.</li>
+    <li>Cover all three seasons including monsoon, even at reduced effort, rather than a continuous five-month block.</li>
+    <li>Record counts, not presence, and report the diversity indices already standard in the regional estuarine literature.</li>
+    <li>Publish the occurrence table as a Darwin Core archive under an open licence at the time of publication, as the beach survey did.</li>
+  </ul>
+  <p>The last point is the one the Mumbai record most obviously lacks, and it is the cheapest to fix.</p>
+</section>
+
+<section id="data">
+  <h2 class="sec"><span class="num">8</span>Data availability</h2>
+  <p>The one openly licensed dataset used here is the beach survey occurrence archive: Ojha S, Yadav R, Barve V (2025), <em>Exploring Marine Zooplankton Diversity In Mumbai's Coastline, Maharashtra, India</em>, published by Thakur College of Science and Commerce, Kandivali East, Mumbai. Fifty-nine records, Darwin Core Archive, CC0 1.0. <a href="https://www.gbif.org/dataset/99685588-3922-4ffc-b434-027de443c6fb">GBIF dataset 99685588-3922-4ffc-b434-027de443c6fb</a>.</p>
+  <p>All other figures in this review are drawn from the published literature and have not been recomputed from primary data.</p>
+</section>
+
+<section id="refs">
+  <h2 class="sec"><span class="num">9</span>References</h2>
+  <p style="font-size:.99rem;color:var(--ink-soft)">Entries marked <span class="unverified">check</span> were located through secondary citation or abstract only. Confirm volume, page range and author list against the original before submission.</p>
+  <ol class="refs">
+    <li>Gaonkar, C.A., Krishnamurthy, V. &amp; Anil, A.C. Changes in the abundance and composition of zooplankton from the ports of Mumbai, India. <em>Environmental Monitoring and Assessment</em>. DOI 10.1007/s10661-009-1102-7.</li>
+    <li>Karati, K.K., Ashadevi, C.R., Harikrishnachari, N.V., Valliyodan, S., Kumaraswami, M., Naidu, S.A. &amp; Ramanamurthy, M.V. (2021). Hydrodynamic variability and nutrient status structuring the mesozooplankton community of the estuaries along the west coast of India. <em>Environmental Science and Pollution Research</em>. DOI 10.1007/s11356-021-13634-x.</li>
+    <li>Ojha, S. &amp; Yadav, R. (2025). Exploring Marine Zooplankton Diversity In Mumbai's Coastline, Maharashtra, India. <em>Journal of Advanced Zoology</em> 46(2), 45–54. DOI 10.53555/jaz.v46i2.5181.</li>
+    <li>Nair, R.V. &amp; Ramaiah, N. (1986). Zooplankton characteristics of the coastal ecosystem off Bombay, India. <em>IOC Workshop Report</em> 142, 272. <span class="unverified">check</span></li>
+    <li>Biomass and composition of zooplankton in the nearshore waters of Thal, Maharashtra. <em>Indian Journal of Marine Sciences</em> 12(3), September 1983. <span class="unverified">check — retrieve full author list</span></li>
+    <li>Athalye, R.P., Patil, N.N., Borkar, M.U., Quadros, G. &amp; Somani, V.U. (2003). Study of flora, intertidal macrobenthic fauna and fishery of Ulhas River estuary and Thane Creek to assess the pollution status and decide mitigation strategy. <span class="unverified">check</span></li>
+    <li>Gokhale &amp; Athalye (1993). Thane Creek plankton survey. <span class="unverified">check — cited only at second hand; locate original</span></li>
+    <li>Sadasivan, S. et al. Zooplankton abundance and its seasonal distribution in Patalganga estuary, Maharashtra, India. <span class="unverified">check</span></li>
+    <li>Sadasivan, S. et al. Spatio-temporal variation of zooplankton diversity in mangroves around Mumbai coast, Maharashtra. <span class="unverified">check</span></li>
+    <li>Karanja estuary mesozooplankton assemblages and environmental variables, January 2022 – March 2023. <span class="unverified">check — full citation not yet resolved</span></li>
+    <li>Takar (2018). Diversity of marine zooplankton in mangroves along the Mumbai coast. <span class="unverified">check — cited via Ojha &amp; Yadav 2025; may be the same work as entry 9</span></li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap" style="padding-left:0;padding-right:0">
+  <p><strong>Before you submit this anywhere.</strong> Every quantitative claim above was assembled from published abstracts and repository metadata, not from full texts. Pull each paper, confirm the figure, and correct anything that has drifted. Three items in particular need resolving: whether Takar 2018 and the Sadasivan mangrove study are the same work, the full citation for the Karanja estuary study, and the original Gokhale &amp; Athalye 1993 source rather than the second-hand comparison.</p>
+  <p><strong>On the beach survey's date range.</strong> Its description gives collection from 22 September 2022, while its dataset metadata records temporal coverage beginning 22 October 2022. Worth a note in the methods, and worth asking the authors.</p>
+  <p><strong>Scope note.</strong> This is a narrative synthesis, not a systematic review. If you are targeting a journal that expects PRISMA, you will need a documented search strategy, databases queried, inclusion criteria and a flow diagram before this can be submitted as one.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var studies = [
+    {x:1945, span:"1940s", label:"Mid-century baseline", flagged:false,
+     body:"No standing dataset survives in open form. The existence of pre-1950 records is known because the 2001\u201302 port survey compared its results against them. Recovering these would extend any Mumbai time series by half a century.",
+     gear:"Design unknown \u2014 held inside a later paper"},
+    {x:1983, span:"1983", label:"Thal, nearshore waters", flagged:true,
+     body:"Biomass and composition of zooplankton in nearshore waters. Diversity increased toward offshore stations. Pycnogonids recorded for the first time from the west coast of India.",
+     gear:"Nearshore to offshore transect"},
+    {x:1986, span:"1986", label:"Coastal ecosystem off Bombay", flagged:false,
+     body:"Nair and Ramaiah characterise the coastal zooplankton community. One of the few pre-liberalisation descriptions of the open coast rather than the creeks.",
+     gear:"Design to be confirmed from original"},
+    {x:1993, span:"1993", label:"Thane Creek, Gokhale & Athalye", flagged:true,
+     body:"Baseline for the creek. Thirty-six phytoplankton types and a zooplankton assemblage later used as the comparison point for the 2003 pollution assessment.",
+     gear:"Creek stations, pollution monitoring"},
+    {x:2001.5, span:"2001\u201302", label:"Ports of Mumbai", flagged:true,
+     body:"Fourteen stations sampled across three periods, compared against records available since the 1940s. The single most useful bridging study in the corpus.",
+     gear:"14 stations, three sampling periods"},
+    {x:2003, span:"2003", label:"Ulhas estuary & Thane Creek", flagged:true,
+     body:"Pollution assessment across twenty-four stations. Phytoplankton types down to twenty-six from thirty-six in 1993; eleven zooplankton types, comparable in richness but lower in density.",
+     gear:"24 stations across two systems"},
+    {x:2018, span:"c. 2018", label:"Mangroves: Bhayandar, Patalganga, Lokhandwala", flagged:true,
+     body:"Eleven zooplankton groups across two estuarine stations and one enclosed mangrove. Tintinnids most dominant. Larval polychaetes, decapods, gastropods and bivalves recorded.",
+     gear:"Three mangrove and estuarine stations"},
+    {x:2021, span:"2021", label:"Six west-coast estuaries", flagged:true,
+     body:"Karati et al. compare macro-tidal Amba and Thane against southern systems. Nutrient enrichment linked to a shift from crustacean plankton toward jellyfish, with consequences for fishery stocks.",
+     gear:"Late-monsoon and post-monsoon, six estuaries"},
+    {x:2022.6, span:"2022\u201323", label:"Karanja estuary", flagged:true,
+     body:"Sixty samples over fifteen months. Thirty-seven taxa. Copepods 33.6% of total abundance, decapod larvae 16.75% \u2014 the meroplankton signal absent from the contemporaneous beach survey.",
+     gear:"60 samples, Jan 2022 \u2013 Mar 2023"},
+    {x:2023.1, span:"2022\u201323", label:"Five Mumbai beaches", flagged:false,
+     body:"Aksa, Versova, Manori, Girgaon Chowpatty and Elephanta. Twenty-eight species, six orders, seventeen families. Twenty holoplankton genera and no meroplankton genera recorded. Published openly as fifty-nine occurrence records.",
+     gear:"Hand net, surface, daytime, 10\u201315 day interval"}
+  ];
+
+  var X0=26, X1=734, Y=132, T0=1938, T1=2028;
+  function px(yr){ return X0 + (yr-T0)/(T1-T0)*(X1-X0); }
+
+  var ticks=document.getElementById('ticks');
+  for(var d=1940; d<=2020; d+=10){
+    var x=px(d);
+    ticks.insertAdjacentHTML('beforeend',
+      '<line class="tick" x1="'+x+'" y1="132" x2="'+x+'" y2="139"/>'+
+      '<text class="decade" x="'+x+'" y="156" text-anchor="middle">'+d+'</text>');
+  }
+
+  // stagger heights so dense clusters stay legible
+  var heights=[96,60,96,42,74,104,56,88,36,66];
+  var marks=document.getElementById('marks');
+  studies.forEach(function(s,i){
+    var x=px(s.x), top=Y-heights[i];
+    marks.insertAdjacentHTML('beforeend',
+      '<line class="stem" x1="'+x+'" y1="'+Y+'" x2="'+x+'" y2="'+(top+6)+'"/>'+
+      '<circle class="dot'+(s.flagged?' flagged':'')+'" id="dot'+i+'" cx="'+x+'" cy="'+top+'" r="5.5"/>'+
+      '<circle class="hit" cx="'+x+'" cy="'+top+'" r="15" tabindex="0" role="button" '+
+      'aria-label="'+s.span+', '+s.label.replace(/"/g,'')+'" data-i="'+i+'"/>');
+  });
+
+  var dYear=document.getElementById('d-year'),
+      dTitle=document.getElementById('d-title'),
+      dBody=document.getElementById('d-body'),
+      dGear=document.getElementById('d-gear'),
+      panel=document.getElementById('detail');
+
+  function show(i){
+    var s=studies[i];
+    Array.prototype.forEach.call(document.querySelectorAll('.dot'),function(c){c.classList.remove('on');});
+    var dot=document.getElementById('dot'+i);
+    if(dot) dot.classList.add('on');
+    panel.classList.toggle('flagged', !!s.flagged);
+    dYear.textContent=s.span;
+    dTitle.textContent=s.label;
+    dBody.textContent=s.body;
+    dGear.textContent=s.gear;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.hit'),function(h){
+    h.addEventListener('click',function(){ show(+h.dataset.i); });
+    h.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(+h.dataset.i); }
+    });
+  });
+
+  try{
+    document.getElementById('today').textContent =
+      new Date().toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>
